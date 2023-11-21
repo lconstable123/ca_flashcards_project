@@ -4,9 +4,12 @@ import { Link, useParams, Navigate } from "react-router-dom";
 import Card from "../cards/Card";
 import ROUTES from "../../app/routes";
 // import quiz selector
-
+import { selectQuizzes } from "./quizSlices";
+import { selectTopics } from "../topics/topicsSlice";
+i
 export default function Quiz() {
-  const quizzes = {}; // replace this with a call to your selector to get all the quizzes in state
+  const quizzes = useSelector(selectQuizzes); // replace this with a call to your selector to get all the quizzes in state
+  const topics = useSelector(selectTopics);
   const { quizId } = useParams();
   const quiz = quizzes[quizId];
 
@@ -18,6 +21,9 @@ export default function Quiz() {
   return (
     <section>
       <h1>{quiz.name}</h1>
+      <p><strong>quiz details</strong></p>
+      <p>Topic is : {topics[quiz.topicId].name}</p>
+      <p>Here are the questions</p>
       <ul className="cards-list">
         {quiz.cardIds.map((id) => (
           <Card key={id} id={id} />
